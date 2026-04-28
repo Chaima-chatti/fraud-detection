@@ -18,7 +18,7 @@ st.set_page_config(
     page_title="FraudShield AI — Enterprise Fraud Detection",
     page_icon="🛡️",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -42,67 +42,57 @@ st.markdown("""
 
     /* Base Layout */
     .stApp {
-        background: linear-gradient(135deg, #0a1929 0%, #1a2332 50%, #0f1419 100%);
+        background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 50%, #f8fafc 100%);
         background-attachment: fixed;
     }
     
     .main .block-container {
         padding: 2rem 3rem;
-        max-width: 1400px;
+        max-width: 1600px;
         animation: fadeInUp 0.6s ease-out;
     }
     
     h1, h2, h3, h4, h5, h6 {
         font-family: 'Inter', sans-serif !important;
-        color: #F8FAFC !important;
+        color: #0f172a !important;
         font-weight: 800 !important;
     }
     
     p, span, div, label {
         font-family: 'Inter', sans-serif !important;
-        color: #CBD5E1 !important;
+        color: #334155 !important;
     }
 
-    /* Sidebar Styling */
+    /* Hide Sidebar */
     [data-testid="stSidebar"] {
-        background: rgba(15, 23, 42, 0.95) !important;
-        backdrop-filter: blur(20px) !important;
-        border-right: 1px solid rgba(148, 163, 184, 0.1) !important;
+        display: none !important;
     }
     
-    [data-testid="stSidebar"] * {
-        color: #E2E8F0 !important;
-    }
-    
-    [data-testid="stSidebar"] h2 {
-        background: linear-gradient(135deg, #0EA5E9 0%, #8B5CF6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-size: 1.5rem !important;
-        margin-bottom: 1rem !important;
+    [data-testid="collapsedControl"] {
+        display: none !important;
     }
 
     /* Metrics Cards */
     [data-testid="metric-container"] {
-        background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
-        border: 1px solid rgba(148, 163, 184, 0.15);
+        background: linear-gradient(135deg, #ffffff, #f8fafc);
+        border: 2px solid #e2e8f0;
         border-radius: 16px;
         padding: 20px;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
         transition: all 0.3s ease;
     }
     
     [data-testid="metric-container"]:hover {
         transform: translateY(-4px);
-        box-shadow: 0 8px 32px rgba(14, 165, 233, 0.2);
-        border-color: rgba(14, 165, 233, 0.4);
+        box-shadow: 0 8px 24px rgba(14, 165, 233, 0.15);
+        border-color: #0EA5E9;
     }
     
     [data-testid="metric-container"] label {
         font-family: 'JetBrains Mono', monospace !important;
         font-size: 11px !important;
         letter-spacing: 1.5px !important;
-        color: #94A3B8 !important;
+        color: #64748b !important;
         text-transform: uppercase !important;
         font-weight: 600 !important;
     }
@@ -139,19 +129,19 @@ st.markdown("""
         border-radius: 24px;
         padding: 40px;
         text-align: center;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         animation: fadeInUp 0.6s ease-out;
         backdrop-filter: blur(10px);
     }
     
     .fraud-card {
-        background: linear-gradient(135deg, rgba(220, 38, 38, 0.15), rgba(153, 27, 27, 0.1));
-        border: 2px solid rgba(239, 68, 68, 0.4);
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        border: 3px solid #ef4444;
     }
     
     .legit-card {
-        background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(21, 128, 61, 0.1));
-        border: 2px solid rgba(74, 222, 128, 0.4);
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        border: 3px solid #10b981;
     }
     
     .icon {
@@ -169,87 +159,149 @@ st.markdown("""
         text-transform: uppercase;
         font-weight: 700;
         display: inline-block;
-        padding: 6px 14px;
-        background: rgba(14, 165, 233, 0.1);
-        border: 1px solid rgba(14, 165, 233, 0.3);
+        padding: 8px 16px;
+        background: #e0f2fe;
+        border: 2px solid #0EA5E9;
         border-radius: 8px;
         margin-bottom: 16px;
     }
     
     .divider {
         border: none;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.3), transparent);
-        margin: 24px 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+        margin: 32px 0;
     }
 
     /* Input Fields */
     .stNumberInput input, .stSelectbox select {
-        background: rgba(30, 41, 59, 0.6) !important;
-        border: 1px solid rgba(148, 163, 184, 0.2) !important;
+        background: #ffffff !important;
+        border: 2px solid #e2e8f0 !important;
         border-radius: 12px !important;
-        color: #F1F5F9 !important;
+        color: #0f172a !important;
         transition: all 0.3s ease !important;
     }
     
     .stNumberInput input:focus, .stSelectbox select:focus {
-        border-color: rgba(14, 165, 233, 0.6) !important;
-        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1) !important;
+        border-color: #0EA5E9 !important;
+        box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1) !important;
+    }
+    
+    .stNumberInput label, .stSelectbox label, .stSlider label, .stRadio label {
+        color: #1e293b !important;
+        font-weight: 600 !important;
     }
 
-    /* Progress Bar */
+    /* Progress Bar - Enhanced */
     .stProgress > div > div {
-        background: linear-gradient(90deg, #0EA5E9, #8B5CF6) !important;
-        border-radius: 10px !important;
+        background: linear-gradient(90deg, #10b981, #f59e0b, #ef4444) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3) !important;
     }
     
     .stProgress > div {
-        background: rgba(30, 41, 59, 0.6) !important;
-        border-radius: 10px !important;
-        height: 12px !important;
+        background: #e2e8f0 !important;
+        border-radius: 12px !important;
+        height: 24px !important;
+        border: 2px solid #cbd5e1 !important;
+    }
+    
+    /* Progress Text */
+    .stProgress [data-testid="stMarkdownContainer"] p {
+        font-size: 16px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
+        margin-bottom: 8px !important;
     }
 
     /* Premium Header */
     .premium-header {
-        background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(139, 92, 246, 0.1));
-        border: 1px solid rgba(148, 163, 184, 0.2);
-        border-radius: 20px;
-        padding: 32px;
+        background: linear-gradient(135deg, #ffffff, #f0f9ff);
+        border: 3px solid #0EA5E9;
+        border-radius: 24px;
+        padding: 40px;
         margin-bottom: 32px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 32px rgba(14, 165, 233, 0.15);
     }
     
     .feature-badge {
         display: inline-block;
-        padding: 6px 12px;
-        background: rgba(14, 165, 233, 0.15);
-        border: 1px solid rgba(14, 165, 233, 0.3);
+        padding: 8px 16px;
+        background: #e0f2fe;
+        border: 2px solid #0EA5E9;
         border-radius: 20px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #0EA5E9;
+        font-size: 13px;
+        font-weight: 700;
+        color: #0369a1;
         margin: 4px;
     }
     
     .info-card {
-        background: rgba(30, 41, 59, 0.6);
-        border: 1px solid rgba(148, 163, 184, 0.2);
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
         border-radius: 12px;
         padding: 16px;
         margin: 8px 0;
         transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     }
     
     .info-card:hover {
-        border-color: rgba(14, 165, 233, 0.4);
+        border-color: #0EA5E9;
         transform: translateX(4px);
+        box-shadow: 0 4px 16px rgba(14, 165, 233, 0.15);
+    }
+    
+    /* Stats Card */
+    .stats-card {
+        background: linear-gradient(135deg, #ffffff, #f8fafc);
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+        margin: 16px 0;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
 
     /* DataFrames */
     [data-testid="stDataFrame"] {
-        background: rgba(15, 23, 42, 0.8) !important;
-        border: 1px solid rgba(148, 163, 184, 0.2) !important;
+        background: #ffffff !important;
+        border: 2px solid #e2e8f0 !important;
         border-radius: 16px !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08) !important;
+    }
+    
+    [data-testid="stDataFrame"] th {
+        background: #f1f5f9 !important;
+        color: #0f172a !important;
+        font-weight: 700 !important;
+    }
+    
+    /* Risk Score Container */
+    .risk-score-container {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 16px;
+        padding: 24px;
+        margin: 16px 0;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    
+    .risk-label {
+        font-size: 18px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+    
+    .risk-percentage {
+        font-size: 48px;
+        font-weight: 900;
+        text-align: center;
+        margin: 16px 0;
+        background: linear-gradient(135deg, #ef4444, #f59e0b, #10b981);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -327,73 +379,53 @@ def predict(inputs):
     return prob >= 0.45, prob, dist_km
 
 # ═══════════════════════════════════════════════════════════════════════════
-# 📊 SIDEBAR
-# ═══════════════════════════════════════════════════════════════════════════
-
-with st.sidebar:
-    st.markdown("## 🛡️ FraudShield AI")
-    
-    st.markdown("<div class='section-tag'>// System Status</div>", unsafe_allow_html=True)
-    if model_loaded:
-        st.success("✅ XGBoost Model Active")
-    else:
-        st.error("⚠️ Model Not Found")
-        st.info("📦 Place model files in root directory")
-
-    st.markdown("<hr class='divider'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-tag'>// Performance</div>", unsafe_allow_html=True)
-    
-    col1, col2 = st.columns(2)
-    col1.metric("Accuracy", "90.24%")
-    col2.metric("AUC-ROC", "92.86%")
-    col1.metric("F1-Score", "90.00%")
-    col2.metric("CV-AUC", "92.67%")
-
-    st.markdown("<hr class='divider'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-tag'>// Model Comparison</div>", unsafe_allow_html=True)
-    
-    st.markdown("""
-| Model | AUC | Status |
-|-------|-----|--------|
-| **XGBoost** | **0.9286** | ✅ Active |
-| Random Forest | 0.9214 | 🔵 Backup |
-| Logistic Reg | 0.9024 | 🔵 Backup |
-| DL-Medium | 0.8476 | 📊 Test |
-""")
-
-    st.markdown("<hr class='divider'>", unsafe_allow_html=True)
-    st.markdown("<div class='section-tag'>// About</div>", unsafe_allow_html=True)
-    st.markdown("""
-**FraudShield AI** uses advanced ML algorithms for real-time fraud detection.
-
-**Version:** 2.0.0  
-**Updated:** April 2026  
-**License:** MIT
-""")
-
-# ═══════════════════════════════════════════════════════════════════════════
 # 🏠 MAIN CONTENT
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Header
+# Header with Stats
 st.markdown("""
 <div class='premium-header'>
-    <div style='display: flex; align-items: center; gap: 20px; margin-bottom: 16px;'>
-        <div style='font-size: 64px; animation: float 3s ease-in-out infinite;'>🛡️</div>
-        <div>
-            <h1 style='font-size: 2.8rem; font-weight: 900; margin: 0; background: linear-gradient(135deg, #0EA5E9, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>
-                FraudShield AI
-            </h1>
-            <p style='color: #94A3B8; font-size: 16px; margin: 8px 0 0 0;'>
-                Enterprise-Grade Fraud Detection System
-            </p>
+    <div style='display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px;'>
+        <div style='display: flex; align-items: center; gap: 20px;'>
+            <div style='font-size: 64px; animation: float 3s ease-in-out infinite;'>🛡️</div>
+            <div>
+                <h1 style='font-size: 2.8rem; font-weight: 900; margin: 0; background: linear-gradient(135deg, #0EA5E9, #8B5CF6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>
+                    FraudShield AI
+                </h1>
+                <p style='color: #64748b; font-size: 16px; margin: 8px 0 0 0;'>
+                    Enterprise-Grade Fraud Detection System
+                </p>
+            </div>
+        </div>
+        <div style='text-align: right;'>
+            <div style='font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;'>Model Status</div>
+            <div style='font-size: 18px; font-weight: 700; color: #10b981;'>""" + ("✅ XGBoost Active" if model_loaded else "⚠️ Offline") + """</div>
         </div>
     </div>
-    <div style='display: flex; gap: 8px; flex-wrap: wrap;'>
+    <div style='display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;'>
         <span class='feature-badge'>🤖 XGBoost ML</span>
         <span class='feature-badge'>⚡ Real-Time Detection</span>
         <span class='feature-badge'>📊 92.86% AUC-ROC</span>
         <span class='feature-badge'>🎯 90.24% Accuracy</span>
+        <span class='feature-badge'>🔒 Enterprise Security</span>
+    </div>
+    <div style='display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 24px;'>
+        <div style='background: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 12px; padding: 16px; text-align: center;'>
+            <div style='font-size: 11px; color: #0369a1; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;'>Accuracy</div>
+            <div style='font-size: 28px; font-weight: 900; color: #0ea5e9;'>90.24%</div>
+        </div>
+        <div style='background: #f0fdf4; border: 2px solid #10b981; border-radius: 12px; padding: 16px; text-align: center;'>
+            <div style='font-size: 11px; color: #047857; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;'>AUC-ROC</div>
+            <div style='font-size: 28px; font-weight: 900; color: #10b981;'>92.86%</div>
+        </div>
+        <div style='background: #fef3c7; border: 2px solid #f59e0b; border-radius: 12px; padding: 16px; text-align: center;'>
+            <div style='font-size: 11px; color: #b45309; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;'>F1-Score</div>
+            <div style='font-size: 28px; font-weight: 900; color: #f59e0b;'>90.00%</div>
+        </div>
+        <div style='background: #fae8ff; border: 2px solid #a855f7; border-radius: 12px; padding: 16px; text-align: center;'>
+            <div style='font-size: 11px; color: #7e22ce; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;'>CV-AUC</div>
+            <div style='font-size: 28px; font-weight: 900; color: #a855f7;'>92.67%</div>
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -494,9 +526,26 @@ if st.button("🔍 Analyze Transaction"):
             </div>""", unsafe_allow_html=True)
 
     with r2:
-        st.markdown("**📊 Detailed Analysis**")
-        st.progress(prob, text=f"Risk Score: {pct:.1f}%")
+        st.markdown("**📊 Detailed Risk Analysis**")
+        
+        # Enhanced Risk Score Display
+        risk_color = "#ef4444" if prob > 0.7 else ("#f59e0b" if prob > 0.45 else "#10b981")
+        risk_text = "HIGH RISK" if prob > 0.7 else ("MEDIUM RISK" if prob > 0.45 else "LOW RISK")
+        
+        st.markdown(f"""
+        <div class='risk-score-container'>
+            <div class='risk-label'>🎯 FRAUD RISK SCORE</div>
+            <div class='risk-percentage' style='color: {risk_color};'>{pct:.1f}%</div>
+            <div style='text-align: center; font-size: 16px; font-weight: 700; color: {risk_color}; margin-bottom: 16px;'>
+                {risk_text}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.progress(prob, text=f"Risk Level: {pct:.1f}% {'🔴' if prob > 0.7 else '🟡' if prob > 0.45 else '🟢'}")
+        
         st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("**Risk Factors:**")
         
         factors = {
             "💰 High Amount (>$800)": ("🔴 HIGH RISK", "risk") if amt > 800 else ("✅ Normal", "safe"),
@@ -507,12 +556,12 @@ if st.button("🔍 Analyze Transaction"):
         }
         
         for name, (status, level) in factors.items():
-            color = "#DC2626" if level == "risk" else ("#F59E0B" if level == "warning" else "#16A34A")
-            bg_color = "rgba(220, 38, 38, 0.1)" if level == "risk" else ("rgba(245, 158, 11, 0.1)" if level == "warning" else "rgba(34, 197, 94, 0.1)")
+            color = "#DC2626" if level == "risk" else ("#F59E0B" if level == "warning" else "#10b981")
+            bg_color = "#fee2e2" if level == "risk" else ("#fef3c7" if level == "warning" else "#d1fae5")
             st.markdown(f"""
-            <div class='info-card' style='border-left: 3px solid {color}; background: {bg_color};'>
+            <div class='info-card' style='border-left: 4px solid {color}; background: {bg_color};'>
                 <div style='display: flex; justify-content: space-between; align-items: center;'>
-                    <span style='color: #E2E8F0; font-weight: 600; font-size: 13px;'>{name}</span>
+                    <span style='color: #0f172a; font-weight: 600; font-size: 14px;'>{name}</span>
                     <span style='color: {color}; font-weight: 700; font-size: 13px;'>{status}</span>
                 </div>
             </div>
@@ -542,7 +591,7 @@ if st.button("🔍 Analyze Transaction"):
 if 'history' in st.session_state and len(st.session_state.history) > 0:
     st.markdown("<hr class='divider'>", unsafe_allow_html=True)
     st.markdown("<div class='section-tag'>// Session History</div>", unsafe_allow_html=True)
-    st.markdown(f"<p style='color: #94A3B8; font-size: 14px; margin-bottom: 16px;'>📋 {len(st.session_state.history)} transaction(s) analyzed</p>", unsafe_allow_html=True)
+    st.markdown(f"<p style='color: #64748b; font-size: 14px; margin-bottom: 16px;'>📋 {len(st.session_state.history)} transaction(s) analyzed</p>", unsafe_allow_html=True)
     st.dataframe(pd.DataFrame(st.session_state.history[::-1]), use_container_width=True, hide_index=True)
     
     col_btn1, col_btn2, col_btn3 = st.columns([1, 1, 2])
@@ -554,3 +603,72 @@ if 'history' in st.session_state and len(st.session_state.history) > 0:
         if st.button("📥 Export CSV"):
             csv = pd.DataFrame(st.session_state.history).to_csv(index=False)
             st.download_button("⬇️ Download", csv, "fraud_history.csv", "text/csv")
+
+# Model Comparison Section
+st.markdown("<hr class='divider'>", unsafe_allow_html=True)
+st.markdown("<div class='section-tag'>// Model Performance Comparison</div>", unsafe_allow_html=True)
+
+col_m1, col_m2 = st.columns([2, 1])
+
+with col_m1:
+    st.markdown("""
+    <div class='stats-card'>
+        <h3 style='color: #0f172a; margin-bottom: 16px;'>📊 Evaluated Models</h3>
+        <table style='width: 100%; border-collapse: collapse;'>
+            <thead>
+                <tr style='background: #f1f5f9; border-bottom: 2px solid #cbd5e1;'>
+                    <th style='padding: 12px; text-align: left; color: #0f172a; font-weight: 700;'>Model</th>
+                    <th style='padding: 12px; text-align: center; color: #0f172a; font-weight: 700;'>AUC-ROC</th>
+                    <th style='padding: 12px; text-align: center; color: #0f172a; font-weight: 700;'>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style='background: #e0f2fe; border-bottom: 1px solid #e2e8f0;'>
+                    <td style='padding: 12px; font-weight: 700; color: #0369a1;'>🏆 XGBoost</td>
+                    <td style='padding: 12px; text-align: center; font-weight: 700; color: #0369a1;'>0.9286</td>
+                    <td style='padding: 12px; text-align: center;'><span style='background: #10b981; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>✅ ACTIVE</span></td>
+                </tr>
+                <tr style='border-bottom: 1px solid #e2e8f0;'>
+                    <td style='padding: 12px; color: #334155;'>Random Forest</td>
+                    <td style='padding: 12px; text-align: center; color: #334155;'>0.9214</td>
+                    <td style='padding: 12px; text-align: center;'><span style='background: #64748b; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>🔵 BACKUP</span></td>
+                </tr>
+                <tr style='border-bottom: 1px solid #e2e8f0;'>
+                    <td style='padding: 12px; color: #334155;'>Logistic Regression</td>
+                    <td style='padding: 12px; text-align: center; color: #334155;'>0.9024</td>
+                    <td style='padding: 12px; text-align: center;'><span style='background: #64748b; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>🔵 BACKUP</span></td>
+                </tr>
+                <tr style='border-bottom: 1px solid #e2e8f0;'>
+                    <td style='padding: 12px; color: #334155;'>DL-Medium</td>
+                    <td style='padding: 12px; text-align: center; color: #334155;'>0.8476</td>
+                    <td style='padding: 12px; text-align: center;'><span style='background: #f59e0b; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>📊 TEST</span></td>
+                </tr>
+                <tr style='border-bottom: 1px solid #e2e8f0;'>
+                    <td style='padding: 12px; color: #334155;'>DL-FocalLoss</td>
+                    <td style='padding: 12px; text-align: center; color: #334155;'>0.8143</td>
+                    <td style='padding: 12px; text-align: center;'><span style='background: #f59e0b; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>📊 TEST</span></td>
+                </tr>
+                <tr>
+                    <td style='padding: 12px; color: #334155;'>DL-Shallow</td>
+                    <td style='padding: 12px; text-align: center; color: #334155;'>0.8024</td>
+                    <td style='padding: 12px; text-align: center;'><span style='background: #f59e0b; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 700;'>📊 TEST</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col_m2:
+    st.markdown("""
+    <div class='stats-card'>
+        <h3 style='color: #0f172a; margin-bottom: 16px;'>ℹ️ About</h3>
+        <p style='color: #64748b; font-size: 14px; line-height: 1.6; margin-bottom: 12px;'>
+            <strong style='color: #0EA5E9;'>FraudShield AI</strong> uses advanced Machine Learning algorithms for real-time fraud detection.
+        </p>
+        <div style='background: #f1f5f9; border-radius: 8px; padding: 12px; margin-top: 12px;'>
+            <div style='font-size: 12px; color: #64748b; margin-bottom: 4px;'><strong>Version:</strong> 2.0.0</div>
+            <div style='font-size: 12px; color: #64748b; margin-bottom: 4px;'><strong>Updated:</strong> April 2026</div>
+            <div style='font-size: 12px; color: #64748b;'><strong>License:</strong> MIT</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
